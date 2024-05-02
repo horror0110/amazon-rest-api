@@ -4,6 +4,7 @@ const asyncHandler = require("express-async-handler");
 const paginate = require("../utils/paginate");
 
 exports.getCategories = asyncHandler(async (req, res, next) => {
+  console.log("============");
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const sort = req.query.sort;
@@ -26,12 +27,6 @@ exports.getCategories = asyncHandler(async (req, res, next) => {
 });
 
 exports.getCategory = asyncHandler(async (req, res, next) => {
-  const t = await req.db.teacher.findByPk(1);
-
-  const c = await t.getCourses();
-
-  console.log(c);
-
   const category = await Category.findById(req.params.id).populate("books");
 
   if (!category) {
